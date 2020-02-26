@@ -1,6 +1,6 @@
 # Banka Uygulaması
 
-Banka Uygulaması nesne yönelimli programlama dersi projesi için , java swing ve sqlite veritabanı kullanılarak sürükle bırak kullanılmadan geliştirilmiş ve türkçe açıklamaları bulunan bir uygulamadır.
+Banka Uygulaması Nesne Yönelimli Programlama ders projesi için , java swing ve sqlite veritabanı kullanılarak sürükle bırak kullanılmadan geliştirilmiş ve türkçe açıklamaları bulunan bir uygulamadır.
 
 ##  Hedef
 
