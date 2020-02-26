@@ -1,12 +1,12 @@
-Banka Uygulaması
+# Banka Uygulaması
 
 Banka Uygulaması nesne yönelimli programlama dersi projesi için , java swing ve sqlite veritabanı kullanılarak sürükle bırak kullanılmadan geliştirilmiş ve türkçe açıklamaları bulunan bir uygulamadır.
 
-🚀 Hedef
+## 🚀 Hedef
 
 Kullanıcıların kendilerine özel hesap oluşturabilmesini ve bu hesaplarıyla para çekme , para yatırma , başka hesaba havale , faturalarını ödeme gibi işlemleri yapabilmelerini sağlamaktır.
 
-🔌 Kurulum
+## 🔌 Kurulum
 
 Uygulamayı yüklemek için şu adımları izleyin.
 
