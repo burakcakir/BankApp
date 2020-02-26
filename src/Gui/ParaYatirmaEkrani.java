@@ -1,11 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Gui;
 
-import Logic.ParaYatirmaActions;
+import Logic.Actions;
+import Logic.IPanelAyar;
+import Logic.KeyTyped;
+import Logic.ParaYatirmaEkraniActions;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -16,140 +14,124 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author burak
- */
-public final class ParaYatirmaEkrani {
-    
-    JFrame ParaYatirmaEkraniFrame = null;
-    JPanel ParaYatirmaEkraniPanel = null;
-    JLabel geriLabel = null;
-    JLabel adsoyadLabel = null;
-    JLabel toplambakiyeLabel = null;
-    JLabel parayatirmatutariLabel = null;
-    JTextField parayatirmatutariTextField = null;
-    JButton parayatirButton = null;    
-    
-    ParaYatirmaActions actions = new ParaYatirmaActions(this);
-    
-    public  ParaYatirmaEkrani()
-    {
-        getParaYatirmaEkraniPanel().setBackground(new Color(204,204,204));
-        getParaYatirmaEkraniPanel().add(geriLabel());
-        getParaYatirmaEkraniPanel().add(adsoyadLabel());
-        getParaYatirmaEkraniPanel().add(toplambakiyeLabel());
-        getParaYatirmaEkraniPanel().add(parayatirmatutariLabel());
-        getParaYatirmaEkraniPanel().add(parayatirmatutariTextField());
-        getParaYatirmaEkraniPanel().add(parayatirButton());
+public class ParaYatirmaEkrani implements IPanelAyar {
+
+    private JFrame paraYatirmaEkraniFrame = null;
+    private JPanel paraYatirmaEkraniPanel = null;
+    private JLabel geriLabel = null;
+    private JLabel adSoyadLabel = null;
+    private JLabel toplamBakiyeLabel = null;
+    private JLabel paraYatirmaTutari = null;
+    private JTextField paraYatirmaTutariText = null;
+    private JButton paraCekButton = null;
+    private ParaYatirmaEkraniActions action = new ParaYatirmaEkraniActions(this);
+
+    public ParaYatirmaEkrani() {
+        panelAyarlamalariYap(getParaYatirmaEkraniPanel());
+        getAdSoyadLabel().setText("Değerli Müşterimiz " + Actions.getDataController().getAdSoyad());
+        getToplamBakiyeLabel().setText("Hesabınızda toplam " + Actions.getDataController().getBakiye() + " TL bakiye bulunmaktadır.");
         getParaYatirmaEkraniFrame().setVisible(true);
     }
-    
-    public JFrame getParaYatirmaEkraniFrame()
-    {
-        if(ParaYatirmaEkraniFrame == null)
-        {
-            ParaYatirmaEkraniFrame = new JFrame("Para Yatırma Ekranı");
-            ParaYatirmaEkraniFrame.setResizable(false);
-            ParaYatirmaEkraniFrame.setLocation(500, 220);
-            ParaYatirmaEkraniFrame.setSize(500, 350);
-            ParaYatirmaEkraniFrame.setContentPane(getParaYatirmaEkraniPanel());            
+
+    public JFrame getParaYatirmaEkraniFrame() {
+        if (paraYatirmaEkraniFrame == null) {
+            paraYatirmaEkraniFrame = new JFrame("Para Yatırma Ekranı");
+            paraYatirmaEkraniFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            paraYatirmaEkraniFrame.setResizable(false);
+            paraYatirmaEkraniFrame.setLocation(700, 320);
+            paraYatirmaEkraniFrame.setSize(480, 350);
+            paraYatirmaEkraniFrame.setContentPane(getParaYatirmaEkraniPanel());
         }
-        return ParaYatirmaEkraniFrame;
+        return paraYatirmaEkraniFrame;
     }
-    
-    public JPanel getParaYatirmaEkraniPanel()
-    {
-        if(ParaYatirmaEkraniPanel == null)
-        {
-            ParaYatirmaEkraniPanel = new JPanel();
-            ParaYatirmaEkraniPanel.setLayout(null);
-            ParaYatirmaEkraniPanel.setFocusable(true);            
+
+    public JPanel getParaYatirmaEkraniPanel() {
+        if (paraYatirmaEkraniPanel == null) {
+            paraYatirmaEkraniPanel = new JPanel();
+            paraYatirmaEkraniPanel.setLayout(null);
+            paraYatirmaEkraniPanel.setFocusable(true);
         }
-        return ParaYatirmaEkraniPanel;
+        return paraYatirmaEkraniPanel;
     }
-    
-    public JLabel geriLabel()
-    {
-        if(geriLabel == null)
-        {
+
+    public JLabel getGeriLabel() {
+        if (geriLabel == null) {
             geriLabel = new JLabel();
             geriLabel.setBounds(10, 10, 30, 28);
             geriLabel.setIcon(new ImageIcon(getClass().getResource("/Gui/Image/geriIcon.png")));
             geriLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            geriLabel.addMouseListener(actions);            
+            geriLabel.addMouseListener(action);
         }
         return geriLabel;
-    }    
-    
-   public JLabel adsoyadLabel()
-   {
-       if(adsoyadLabel == null)
-       {
-           adsoyadLabel = new JLabel();
-           adsoyadLabel.setText("Değerli Müşterimiz [Ad Soyad]");
-           adsoyadLabel.setFont(getFont(1, 18));
-           adsoyadLabel.setForeground(Color.red);
-           adsoyadLabel.setBounds(20, 60, 280, 35);                  
-       }
-       return adsoyadLabel;
-   }    
-   
-   public JLabel toplambakiyeLabel()
-   {
-       if(toplambakiyeLabel == null)
-       {
-           toplambakiyeLabel = new JLabel();
-           toplambakiyeLabel.setText("Hesabınızda Toplam .... TL Bakiye Bulunmaktadır.");
-           toplambakiyeLabel.setFont(getFont(0, 18));
-           toplambakiyeLabel.setForeground(Color.blue);
-           toplambakiyeLabel.setBounds(40, 100, 450, 35);
-           
-       }
-       return toplambakiyeLabel;
-   }
-   
-   public JLabel parayatirmatutariLabel()
-   {
-       if(parayatirmatutariLabel == null)
-       {
-           parayatirmatutariLabel = new JLabel();
-           parayatirmatutariLabel.setText("Lütfen yatırmak istediğiniz tutarı aşağıdaki alana giriniz.");
-           parayatirmatutariLabel.setFont(getFont(0, 18));
-           parayatirmatutariLabel.setForeground(Color.black);
-           parayatirmatutariLabel.setBounds(20, 140, 450, 35);
-       }
-       return parayatirmatutariLabel;
-   }
-   
-   public JTextField parayatirmatutariTextField()
-   {
-       if(parayatirmatutariTextField == null)
-       {
-            parayatirmatutariTextField = new JTextField();
-            parayatirmatutariTextField.setFont(getFont(0, 11));
-            parayatirmatutariTextField.setBounds(150, 180, 150, 35);          
-       }
-       return parayatirmatutariTextField;
-   }
-   
-   public JButton parayatirButton()
-   {
-       if(parayatirButton == null)
-       {
-            parayatirButton = new JButton();
-            parayatirButton.setText("Para Yatır");
-            parayatirButton.setFont(getFont(1, 15));
-            parayatirButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            parayatirButton.setBounds(170, 230, 110 ,35);
-            parayatirButton.addActionListener(actions);            
-       }
-       return parayatirButton;
-   }
-   
-    
+    }
+
+    public JLabel getAdSoyadLabel() {
+        if (adSoyadLabel == null) {
+            adSoyadLabel = new JLabel();
+            adSoyadLabel.setText("Değerli Müşterimiz [Ad Soyad]");
+            adSoyadLabel.setFont(getFont(1, 18));
+            adSoyadLabel.setForeground(Color.red);
+            adSoyadLabel.setBounds(20, 60, 280, 35);
+        }
+        return adSoyadLabel;
+    }
+
+    public JLabel getToplamBakiyeLabel() {
+        if (toplamBakiyeLabel == null) {
+            toplamBakiyeLabel = new JLabel();
+            toplamBakiyeLabel.setText("Hesabınızda Toplam .... TL Bakiye Bulunmaktadır.");
+            toplamBakiyeLabel.setFont(getFont(0, 18));
+            toplamBakiyeLabel.setForeground(Color.blue);
+            toplamBakiyeLabel.setBounds(20, 110, 450, 35);
+        }
+        return toplamBakiyeLabel;
+    }
+
+    public JLabel getParaYatirmaTutariLabel() {
+        if (paraYatirmaTutari == null) {
+            paraYatirmaTutari = new JLabel();
+            paraYatirmaTutari.setText("Lütfen yatırmak istediğiniz tutarı aşağıdaki alana giriniz.");
+            paraYatirmaTutari.setFont(getFont(0, 18));
+            paraYatirmaTutari.setForeground(Color.black);
+            paraYatirmaTutari.setBounds(20, 150, 450, 35);
+        }
+        return paraYatirmaTutari;
+    }
+
+    public JTextField getParaYatirmaTutariText() {
+        if (paraYatirmaTutariText == null) {
+            paraYatirmaTutariText = new JTextField();
+            paraYatirmaTutariText.setFont(getFont(0, 18));
+            paraYatirmaTutariText.setBounds(155, 210, 150, 35);
+            KeyTyped.sadeceSayiAl(getParaYatirmaEkraniFrame(), paraYatirmaTutariText);
+        }
+        return paraYatirmaTutariText;
+    }
+
+    public JButton getParaYatirButton() {
+        if (paraCekButton == null) {
+            paraCekButton = new JButton();
+            paraCekButton.setText("Para Yatır");
+            paraCekButton.setFont(getFont(1, 15));
+            paraCekButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            paraCekButton.setBounds(174, 260, 110, 35);
+            paraCekButton.addActionListener(action);
+        }
+        return paraCekButton;
+    }
+
     public Font getFont(int style, int size) {
         return new Font("Segoe UI", style, size);
-    } 
-   
+    }
+
+    @Override
+    public void panelAyarlamalariYap(JPanel panel) {
+        panel.setBackground(new Color(255, 255, 204));
+        panel.add(getGeriLabel());
+        panel.add(getAdSoyadLabel());
+        panel.add(getToplamBakiyeLabel());
+        panel.add(getParaYatirmaTutariLabel());
+        panel.add(getParaYatirmaTutariText());
+        panel.add(getParaYatirButton());
+    }
 }

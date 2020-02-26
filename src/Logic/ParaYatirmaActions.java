@@ -16,12 +16,12 @@ public class ParaYatirmaActions extends Actions{
     
     public ParaYatirmaActions(ParaYatirmaEkrani parayatirmaEkrani)
     {
-        setParaYatirmaEkrani(this.parayatirmaEkrani);
+        setParaYatirmaEkrani(parayatirmaEkrani);
     }
     
     public void setParaYatirmaEkrani(ParaYatirmaEkrani parayatirmaEkrani)
     {
-        this.parayatirmaEkrani = this.parayatirmaEkrani;
+        this.parayatirmaEkrani = parayatirmaEkrani;
     }
     
     public ParaYatirmaEkrani parayatirmaEkrani()

@@ -1,95 +1,80 @@
-
 package Logic;
 
-import Gui.KullaniciHesapEkrani;
 import Gui.OdemelerEkrani;
-import Logic.UyariMesajlari;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
-import javax.swing.ImageIcon;
 
-public class OdemelerEkraniActions extends  Actions 
-{
-    
-    KullaniciHesapEkrani kullaniciHesapEkrani = null;
-    UyariMesajlari uyariMesajlari = null;
-    OdemelerEkrani odemelerEkrani = null;
-    
-    public OdemelerEkraniActions(OdemelerEkrani odemelerEkrani)
-    {
-        setOdemelerEkrani(this.odemelerEkrani);
-    }
-     
-    public void setOdemelerEkrani(OdemelerEkrani odemelerEkrani)
-    {
-        this.odemelerEkrani = this.odemelerEkrani;
-    }
-    
-    public OdemelerEkrani odemelerEkrani()
-    {
-        if(odemelerEkrani == null)
-        {
-            odemelerEkrani = new OdemelerEkrani();
-        }
-        return odemelerEkrani;
-    }
-    
-    public UyariMesajlari uyariMesajlari()
-    {
-     if(uyariMesajlari == null)
-     {
-         uyariMesajlari = new UyariMesajlari();
-     }
-        return uyariMesajlari;
+public class OdemelerEkraniActions extends Actions {
+
+    DbOdemelerActions dbOdemelerActions = null;
+
+    public OdemelerEkraniActions(OdemelerEkrani odemelerEkrani) {
+        setOdemelerEkrani(odemelerEkrani);
     }
 
-    public KullaniciHesapEkrani kullaniciHesapEkrani()
-    {
-        if(kullaniciHesapEkrani == null)
-        {
-            kullaniciHesapEkrani = new KullaniciHesapEkrani();
-        }
-        return kullaniciHesapEkrani;
-    }    
+    public void setOdemelerEkrani(OdemelerEkrani odemelerEkrani) {
+        this.odemelerEkrani = odemelerEkrani;
+    }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        
-        if(e.getSource() == odemelerEkrani().geriLabel())
-        {
-            kullaniciHesapEkrani();
-            odemelerEkrani().getOdemelerEkraniFrame().setVisible(false);
+    public DbOdemelerActions getDbOdemelerActions() {
+        if (dbOdemelerActions == null) {
+            dbOdemelerActions = new DbOdemelerActions();
         }
-        
+        return dbOdemelerActions;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-        if(e.getSource() == odemelerEkrani().elektrikButton())
-        {
-            // elektrik öde tılanınca
+        super.actionPerformed(e);
+
+        if (sourceController().buttonSource(odemelerEkrani().getElektrikOdeButton())) {
+            double elektrikFaturasi = Actions.getDataController().getElektrikFaturasi();
+            borcuOde("Elektrik", elektrikFaturasi, "elektrikFaturasi");
         }
-        
-        if(e.getSource() == odemelerEkrani().dogalgazButton())
-        {
-            // doğal gaz öde tıklanınca
+
+        if (sourceController().buttonSource(odemelerEkrani().getSuOdeButton())) {
+            double suFaturasi = Actions.getDataController().getSuFaturasi();
+            borcuOde("Su", suFaturasi, "suFaturasi");
         }
-        
-        if(e.getSource() == odemelerEkrani().suButton())
-        {
-            // su ödeme tıklayınca
+
+        if (sourceController().buttonSource(odemelerEkrani().getDogalgazOdeButton())) {
+            double dogalgazFaturasi = Actions.getDataController().getDogalgazFaturasi();
+            borcuOde("Doğalgaz", dogalgazFaturasi, "dogalgazFaturasi");
         }
-        
-        if(e.getSource() == odemelerEkrani().internetButton())
-        {
-            //internet öde tıklanınca
+
+        if (sourceController().buttonSource(odemelerEkrani().getInternetOdeButton())) {
+            double internetFaturasi = Actions.getDataController().getInternetFaturasi();
+            borcuOde("İnternet", internetFaturasi, "internetFaturasi");
         }
-        
     }
-    
-    
-    
-    
-    
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        super.mouseClicked(e);
+
+        if (sourceController().labelSource(odemelerEkrani().getGeriLabel())) {
+            odemelerEkrani().getOdemelerEkraniFrame().setVisible(false);
+            kullaniciHesapEkrani().getKullaniciHesapEkraniFrame().setVisible(true);
+        }
+    }
+
+    public void borcuOde(String faturaIsmi, double faturaTutari, String faturaCesidi) {
+        /**/
+        if (uyariMesajlari().onayMesajiGoster(odemelerEkrani().getOdemelerEkraniFrame(),
+                "Ödeyeceğiniz " + faturaIsmi + " faturası tutarı toplam " + faturaTutari + " TL'dir.", "Onaylıyor musunuz?") == 1) {
+            if (getDbOdemelerActions().faturayiOde(faturaCesidi, faturaTutari)) { //fatura ödenebilmişse
+                odemelerEkrani().getOdemelerEkraniFrame().setVisible(false);
+                if (uyariMesajlari().onayMesajiGoster(odemelerEkrani().getOdemelerEkraniFrame(),
+                        faturaIsmi + " faturası borcunuz ödenmiştir.\nBaşka işlem yapmak istiyor musunuz?", "UYARI") == 1) {
+                    kullaniciHesapEkrani();
+                } else {
+                    girisEkrani();
+                }
+            } else { //fatura ödenememişse
+                uyariMesajlari().uyariMesajiGoster(odemelerEkrani().getOdemelerEkraniFrame(),
+                        faturaIsmi + " faturasını ödeyebilmeniz için yeterli bakiyeniz bulunmamaktadır!");
+            }
+        }
+    }
+
 }

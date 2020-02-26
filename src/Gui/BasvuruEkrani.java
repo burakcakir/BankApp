@@ -1,75 +1,59 @@
 package Gui;
 
 import Logic.BasvuruEkraniActions;
+import Logic.IPanelAyar;
 import Logic.JTextFieldLimit;
 import Logic.KeyTyped;
 import java.awt.*;
 import javax.swing.*;
 
-public  class BasvuruEkrani {
+public final class BasvuruEkrani implements IPanelAyar {
 
-    JFrame basvuruEkraniFrame = null;
-    JPanel basvuruEkraniPanel = null;
-    JLabel kisiselbilgilerLabel = null;
-    JLabel geriLabel = null;
-    JLabel adsoyadLabel = null;
-    JTextField adsoyadTextField = null;
-    JLabel tcnoLabel = null;
-    JTextField tcnoTextField = null;
-    JLabel telnoLabel = null;
-    JTextField telnoTextField = null;
-    JLabel guvenlikLabel = null;
-    JLabel guvenliksorusuLabel = null;
-    JComboBox guvenliksorusuComboBox = null;
-    JLabel guvenliksorucevapLabel = null;
-    JTextField guvenliksorucevapTextField = null;
-    JButton basvur = null;
-    
-    
-    BasvuruEkraniActions action = new BasvuruEkraniActions(this);
-    
+    private JFrame basvuruEkraniFrame = null;
+    private JPanel basvuruEkraniPanel = null;
+    private JLabel geriLabel = null;
+    private JLabel kisiselBilgilerLabel = null;
+    private JLabel adSoyadLabel = null;
+    private JTextField adSoyadText = null;
+    private JLabel tcNoLabel = null;
+    private JTextField tcNoText = null;
+    private JLabel telNoLabel = null;
+    private JTextField telNoText = null;
+    private JLabel guvenlikLabel = null;
+    private JLabel guvenlikSorusuLabel = null;
+    private JComboBox guvenlikSorusuComboBox = null;
+    private JLabel guvenlikCevapLabel = null;
+    private JTextField guvenlikCevapText = null;
+    private JButton basvurButton = null;
+    private BasvuruEkraniActions action = new BasvuruEkraniActions(this);
+
     public BasvuruEkrani() {
-        basvuruEkraniPanel().setBackground(new Color(208,204,204));
-        basvuruEkraniPanel().add(geriLabel());
-        basvuruEkraniPanel.add(kisiselbilgilerLabel());
-        basvuruEkraniPanel.add(adsoyadlabel());
-        basvuruEkraniPanel.add(adsoyadTextField());
-        basvuruEkraniPanel.add(tcnoLabel());
-        basvuruEkraniPanel.add(tcnoTextField());
-        basvuruEkraniPanel.add(telnoLabel());
-        basvuruEkraniPanel.add(telnoTextField());
-        basvuruEkraniPanel.add(guvenlikLabel());
-        basvuruEkraniPanel.add(guvenliksorusuLabel());
-        basvuruEkraniPanel.add(guvenliksorusuComboBox());
-        basvuruEkraniPanel.add(guvenliksorucevapLabel());
-        basvuruEkraniPanel.add(guvenliksorucevapTextField());
-        basvuruEkraniPanel.add(basvur());
-        basvuruEkraniFrame().setVisible(true);
+        panelAyarlamalariYap(getBasvuruEkraniPanel());
+        getBasvuruEkraniFrame().setVisible(true);
     }
 
-    public JFrame basvuruEkraniFrame() {
+    public JFrame getBasvuruEkraniFrame() {
         if (basvuruEkraniFrame == null) {
-            basvuruEkraniFrame = new JFrame("Başvuru Ekranı");
-            basvuruEkraniFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //pencereyi hicbir sekilde kapatamaz
-            basvuruEkraniFrame.setResizable(false); //pencere boyutu ayarlanamaz
-            //basvuruEkraniFrame.setSize(500,483);
-            basvuruEkraniFrame.setSize(500,500);
-            basvuruEkraniFrame.setLocation(700, 300);
-            basvuruEkraniFrame.setContentPane(basvuruEkraniPanel());
+            basvuruEkraniFrame = new JFrame("Başvuru");
+            basvuruEkraniFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            basvuruEkraniFrame.setResizable(false); 
+            basvuruEkraniFrame.setSize(500, 483);
+            basvuruEkraniFrame.setLocation(680, 250);
+            basvuruEkraniFrame.setContentPane(getBasvuruEkraniPanel());
         }
         return basvuruEkraniFrame;
     }
-    
-    public JPanel basvuruEkraniPanel() {
-        if(basvuruEkraniPanel == null) {
+
+    public JPanel getBasvuruEkraniPanel() {
+        if (basvuruEkraniPanel == null) {
             basvuruEkraniPanel = new JPanel();
             basvuruEkraniPanel.setLayout(null);
         }
         return basvuruEkraniPanel;
     }
-    
-    public JLabel geriLabel() {
-        if(geriLabel == null) {
+
+    public JLabel getGeriLabel() {
+        if (geriLabel == null) {
             geriLabel = new JLabel();
             geriLabel.setBounds(10, 10, 30, 28);
             geriLabel.setIcon(new ImageIcon(getClass().getResource("/Gui/Image/geriIcon.png")));
@@ -78,180 +62,171 @@ public  class BasvuruEkrani {
         }
         return geriLabel;
     }
-    
-    public JLabel kisiselbilgilerLabel()
-    {
-        if(kisiselbilgilerLabel == null)
-        {
-            kisiselbilgilerLabel = new JLabel();
-            kisiselbilgilerLabel.setText("Kişisel Bilgiler ");
-            kisiselbilgilerLabel.setFont(getFont(1, 11)); // style:bold , size:19
-            kisiselbilgilerLabel.setForeground(Color.red);
-            kisiselbilgilerLabel.setBounds(50, 70, 80, 20);
+
+    public JLabel getKisiselBilgilerLabel() {
+        if (kisiselBilgilerLabel == null) {
+            kisiselBilgilerLabel = new JLabel();
+            kisiselBilgilerLabel.setText("Kişisel Bilgiler ");
+            kisiselBilgilerLabel.setFont(getFont(1, 14)); 
+            kisiselBilgilerLabel.setForeground(Color.red);
+            kisiselBilgilerLabel.setBounds(50, 60, 100, 20);
         }
-        return kisiselbilgilerLabel;
+        return kisiselBilgilerLabel;
     }
-    
-    public JLabel adsoyadlabel()
-    {
-        if(adsoyadLabel == null)
-        {
-            adsoyadLabel = new JLabel();
-            adsoyadLabel.setText("Ad Soyad                          :");
-            adsoyadLabel.setFont(getFont(0, 11)); // style:bold , size:19
-            adsoyadLabel.setForeground(Color.black);
-            adsoyadLabel.setBounds(50,110,150,20);
-            
+
+    public JLabel getAdSoyadLabel() {
+        if (adSoyadLabel == null) {
+            adSoyadLabel = new JLabel();
+            adSoyadLabel.setText("Ad Soyad                          :");
+            adSoyadLabel.setFont(getFont(0, 11)); 
+            adSoyadLabel.setForeground(Color.black);
+            adSoyadLabel.setBounds(50, 110, 150, 20);
+
         }
-        return adsoyadLabel;
+        return adSoyadLabel;
     }
-    
-    public JTextField adsoyadTextField()
-    {
-        if(adsoyadTextField == null)
-        {
-            adsoyadTextField = new JTextField();
-            adsoyadTextField.setFont(getFont(0, 11));
-            adsoyadTextField.setBounds(200,110, 200, 20);
+
+    public JTextField getAdSoyadText() {
+        if (adSoyadText == null) {
+            adSoyadText = new JTextField();
+            adSoyadText.setFont(getFont(0, 13));
+            adSoyadText.setBounds(200, 110, 200, 20);
         }
-        return adsoyadTextField;
+        return adSoyadText;
     }
-    
-    public JLabel tcnoLabel()
-    {
-        if(tcnoLabel == null)
-        {
-            tcnoLabel = new JLabel();
-            tcnoLabel.setText("T.C Kimlik Numarası         :");
-            tcnoLabel.setFont(getFont(0, 11)); // style:bold , size:19
-            tcnoLabel.setForeground(Color.black);
-            tcnoLabel.setBounds(50, 160, 150, 20);
+
+    public JLabel getTcNoLabel() {
+        if (tcNoLabel == null) {
+            tcNoLabel = new JLabel();
+            tcNoLabel.setText("T.C Kimlik Numarası         :");
+            tcNoLabel.setFont(getFont(0, 11)); 
+            tcNoLabel.setForeground(Color.black);
+            tcNoLabel.setBounds(50, 160, 150, 20);
         }
-        return tcnoLabel;
+        return tcNoLabel;
     }
-    
-    public JTextField tcnoTextField()
-    {
-        if(tcnoTextField == null)
-        {
-            tcnoTextField = new JTextField();
-            tcnoTextField.setFont(getFont(0, 11));
-            tcnoTextField.setBounds(200,160, 200, 20);
-            KeyTyped.sadeceSayiAl(basvuruEkraniFrame, tcnoTextField);
-            tcnoTextField.setDocument(new JTextFieldLimit(11));
-            
+
+    public JTextField getTcNoText() {
+        if (tcNoText == null) {
+            tcNoText = new JTextField();
+            tcNoText.setFont(getFont(0, 13));
+            tcNoText.setBounds(200, 160, 200, 20);
+            tcNoText.setDocument(new JTextFieldLimit(11));
+            KeyTyped.sadeceSayiAl(getBasvuruEkraniFrame(), getTcNoText());
         }
-        return tcnoTextField;
+        return tcNoText;
     }
-    
-    public JLabel telnoLabel()
-    {
-        if(telnoLabel == null)
-        {
-            telnoLabel = new JLabel();
-            telnoLabel.setText("Telefon Numarası            :");
-            telnoLabel.setFont(getFont(0, 11)); // style:bold , size:19
-            telnoLabel.setForeground(Color.black);
-            telnoLabel.setBounds(50, 210, 150, 20);
+
+    public JLabel getTelNoLabel() {
+        if (telNoLabel == null) {
+            telNoLabel = new JLabel();
+            telNoLabel.setText("Telefon Numarası            :");
+            telNoLabel.setFont(getFont(0, 11)); 
+            telNoLabel.setForeground(Color.black);
+            telNoLabel.setBounds(50, 210, 150, 20);
         }
-        return telnoLabel;
+        return telNoLabel;
     }
-    
-    public JTextField telnoTextField()
-    {
-        if(telnoTextField == null)
-        {
-            telnoTextField = new JTextField();
-            telnoTextField.setFont(getFont(0, 11));
-            telnoTextField.setBounds(200,210, 200, 20);
-            KeyTyped.sadeceSayiAl(basvuruEkraniFrame, telnoTextField);
-            telnoTextField.setDocument(new JTextFieldLimit(11));
-            
+
+    public JTextField getTelNoText() {
+        if (telNoText == null) {
+            telNoText = new JTextField();
+            telNoText.setFont(getFont(0, 13));
+            telNoText.setBounds(200, 210, 200, 20);
+            telNoText.setDocument(new JTextFieldLimit(11));
+            KeyTyped.sadeceSayiAl(getBasvuruEkraniFrame(), getTelNoText());
         }
-        return telnoTextField;
+        return telNoText;
     }
-    
-    public JLabel guvenlikLabel()
-    {
-        if(guvenlikLabel == null)
-        {
+
+    public JLabel getGuvenlikLabel() {
+        if (guvenlikLabel == null) {
             guvenlikLabel = new JLabel();
             guvenlikLabel.setText("Güvenlik Bilgileri ");
-            guvenlikLabel.setFont(getFont(1, 11)); // style:bold , size:19
+            guvenlikLabel.setFont(getFont(1, 14)); 
             guvenlikLabel.setForeground(Color.red);
-            guvenlikLabel.setBounds(50, 260, 100, 20);
-            
+            guvenlikLabel.setBounds(50, 260, 120, 20);
+
         }
         return guvenlikLabel;
     }
-    
-    public JLabel guvenliksorusuLabel()
-    {
-        if(guvenliksorusuLabel == null)
-        {
-            guvenliksorusuLabel = new JLabel();
-            guvenliksorusuLabel.setText("Güvenlik Sorusu               :");
-            guvenliksorusuLabel.setFont(getFont(0, 11)); // style:bold , size:19
-            guvenliksorusuLabel.setForeground(Color.black);
-            guvenliksorusuLabel.setBounds(50, 310, 150, 20);
+
+    public JLabel getGuvenlikSorusuLabel() {
+        if (guvenlikSorusuLabel == null) {
+            guvenlikSorusuLabel = new JLabel();
+            guvenlikSorusuLabel.setText("Güvenlik Sorusu               :");
+            guvenlikSorusuLabel.setFont(getFont(0, 11)); 
+            guvenlikSorusuLabel.setForeground(Color.black);
+            guvenlikSorusuLabel.setBounds(50, 310, 150, 20);
         }
-        return guvenliksorusuLabel;
+        return guvenlikSorusuLabel;
     }
-    
-    
-    public JComboBox guvenliksorusuComboBox()
-    {
-        if(guvenliksorusuComboBox == null)
-        {
-            guvenliksorusuComboBox = new JComboBox();
-            guvenliksorusuComboBox.setBounds(200,310,200,20);
-            guvenliksorusuComboBox.setModel(new DefaultComboBoxModel(new String [] { "İlk evcil hayvanınızın adı nedir?", "En sevdiğiniz nesne nedir?", "İlkokul öğretmeninizin soyadı nedir?"}));
-            guvenliksorusuComboBox.setFont(getFont(0, 11));
+
+    public JComboBox getGuvenlikSorusuComboBox() {
+        if (guvenlikSorusuComboBox == null) {
+            guvenlikSorusuComboBox = new JComboBox();
+            guvenlikSorusuComboBox.setBounds(200, 310, 200, 20);
+            guvenlikSorusuComboBox.setModel(new DefaultComboBoxModel(new String[]{"İlk evcil hayvanınızın adı nedir?",
+                "En sevdiğiniz nesne nedir?",
+                "İlkokul öğretmeninizin soyadı nedir?"}));
+            guvenlikSorusuComboBox.setFont(getFont(0, 11));
         }
-        return guvenliksorusuComboBox;
+        return guvenlikSorusuComboBox;
     }
-    
-    
-    public JLabel guvenliksorucevapLabel()
-    {
-        if(guvenliksorucevapLabel == null)
-        {
-            guvenliksorucevapLabel = new JLabel();
-            guvenliksorucevapLabel.setText("Güvenlik Sorusu Cevabı   :");
-            guvenliksorucevapLabel.setFont(getFont(0, 11));
-            guvenliksorucevapLabel.setForeground(Color.black);
-            guvenliksorucevapLabel.setBounds(50, 360, 200, 20);
+
+    public JLabel getGuvenlikCevapLabel() {
+        if (guvenlikCevapLabel == null) {
+            guvenlikCevapLabel = new JLabel();
+            guvenlikCevapLabel.setText("Güvenlik Sorusu Cevabı   :");
+            guvenlikCevapLabel.setFont(getFont(0, 11));
+            guvenlikCevapLabel.setForeground(Color.black);
+            guvenlikCevapLabel.setBounds(50, 360, 150, 20);
         }
-        return guvenliksorucevapLabel;
+        return guvenlikCevapLabel;
     }
-    
-    public JTextField guvenliksorucevapTextField()
-    {
-        if(guvenliksorucevapTextField == null)
-        {
-            guvenliksorucevapTextField = new JTextField();
-            guvenliksorucevapTextField.setFont(getFont(0, 11));
-            guvenliksorucevapTextField.setBounds(200,360, 200, 20);
-            
+
+    public JTextField getGuvenlikCevapText() {
+        if (guvenlikCevapText == null) {
+            guvenlikCevapText = new JTextField();
+            guvenlikCevapText.setFont(getFont(0, 13));
+            guvenlikCevapText.setBounds(200, 360, 200, 20);
+
         }
-        return guvenliksorucevapTextField;
+        return guvenlikCevapText;
     }
-    
-        public JButton basvur() {
-        if (basvur == null) {
-            basvur = new JButton();
-            basvur.setText("Başvur");
-            basvur.setFont(getFont(0, 11));
-            basvur.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            basvur.setBounds(255, 420, 90,25);
-            basvur.addActionListener(action);
+
+    public JButton getBasvurButton() {
+        if (basvurButton == null) {
+            basvurButton = new JButton();
+            basvurButton.setText("Başvur");
+            basvurButton.setFont(getFont(0, 13));
+            basvurButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            basvurButton.setBounds(255, 410, 90, 25);
+            basvurButton.addActionListener(action);
         }
-        return basvur;
+        return basvurButton;
     }
-    
-    
-     public Font getFont(int style, int size) {
+
+    public Font getFont(int style, int size) {
         return new Font("Segoe UI", style, size);
     }
-    
+
+    @Override
+    public void panelAyarlamalariYap(JPanel panel) {
+        panel.setBackground(new Color(208, 204, 204));
+        panel.add(getGeriLabel());
+        panel.add(getKisiselBilgilerLabel());
+        panel.add(getAdSoyadLabel());
+        panel.add(getAdSoyadText());
+        panel.add(getTcNoLabel());
+        panel.add(getTcNoText());
+        panel.add(getTelNoLabel());
+        panel.add(getTelNoText());
+        panel.add(getGuvenlikLabel());
+        panel.add(getGuvenlikSorusuLabel());
+        panel.add(getGuvenlikSorusuComboBox());
+        panel.add(getGuvenlikCevapLabel());
+        panel.add(getGuvenlikCevapText());
+        panel.add(getBasvurButton());
+    }
 }

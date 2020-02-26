@@ -13,9 +13,11 @@ public class UyariMesajlari {
 
     public int onayMesajiGoster(Component currentComponent, String message, String title) {
         int optionType = JOptionPane.YES_NO_OPTION;
-        int selected = JOptionPane.showConfirmDialog(currentComponent, message, title, optionType);    
-        if(optionType == selected) //eger yes secenegi secilmisse 
-            return 1;        
+        int selected = JOptionPane.showConfirmDialog(currentComponent, message, title, optionType);
+        if (optionType == selected) //eger yes secenegi secilmisse 
+        {
+            return 1;
+        }
         return -1; //eger no secilmisse
     }
 

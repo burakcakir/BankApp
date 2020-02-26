@@ -69,7 +69,7 @@ public final class Ayarlar {
         {
             adsoyadLabel = new JLabel();
             adsoyadLabel.setText("Sayın[Müşteri Adı Soyadı]");
-            adsoyadLabel.setFont(getFont(1, 24)); // style:bold , size:19
+            adsoyadLabel.setFont(getFont(1, 24)); 
             adsoyadLabel.setForeground(Color.red);
             adsoyadLabel.setBounds(20, 20, 350, 30);         
         }
@@ -82,7 +82,7 @@ public final class Ayarlar {
         {
             musterinoLabel  = new JLabel();
             musterinoLabel .setText("Müşteri Numaranız : ");
-            musterinoLabel .setFont(getFont(1, 18)); // style:bold , size:19
+            musterinoLabel .setFont(getFont(1, 18)); 
             musterinoLabel .setForeground(Color.black);
             musterinoLabel .setBounds(20, 70, 200, 30);       
         }
@@ -106,7 +106,7 @@ public final class Ayarlar {
         {
             telnoLabel  = new JLabel();
             telnoLabel .setText("Telefon Numaranız : ");
-            telnoLabel .setFont(getFont(1, 18)); // style:bold , size:19
+            telnoLabel .setFont(getFont(1, 18)); 
             telnoLabel .setForeground(Color.black);
             telnoLabel .setBounds(20, 120, 200, 30);       
         }
@@ -144,7 +144,7 @@ public final class Ayarlar {
         {
             sifrenizLabel = new JLabel();
             sifrenizLabel.setText("Şifreniz                     :");
-            sifrenizLabel.setFont(getFont(1, 18)); // style:bold , size:19
+            sifrenizLabel.setFont(getFont(1, 18)); 
             sifrenizLabel.setForeground(Color.black);
             sifrenizLabel.setBounds(20, 170, 200, 30);  
         }

@@ -20,7 +20,7 @@ public final class ParaCekmeEkranıActions extends Actions{
     }
     
     public void setParaCekmeEkranı(ParaCekmeEkranı paracekmeEkrani) {
-        this.paracekmeEkrani = this.paracekmeEkrani;
+        this.paracekmeEkrani = paracekmeEkrani;
     }    
     
     public ParaCekmeEkranı paracekmeEkrani() {

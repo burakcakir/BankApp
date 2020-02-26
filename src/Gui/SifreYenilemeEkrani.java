@@ -1,109 +1,81 @@
 package Gui;
 
+import Logic.IPanelAyar;
 import Logic.JTextFieldLimit;
 import Logic.KeyTyped;
-import Logic.SifreYenilemeActions;
+import Logic.SifreYenilemeEkraniActions;
 import java.awt.*;
 import javax.swing.*;
 
-// çarpıya basınca ayarlar ekranına geri dönmesi ayarlanıcak
+public final class SifreYenilemeEkrani implements IPanelAyar {
 
-public final class SifreYenilemeEkrani {
-    
-    JFrame SifreYenilemeFrame = null;
-    JPanel SifreYenilemePanel = null;
-    JLabel geriLabel = null;
-    JLabel sifreyenilemeLabel = null;
-    JLabel tcnoLabel = null;
-    JTextField tcnoTextField = null;
-    JLabel guvenliksorusuLabel = null;
-    JTextField guvenliksorusuTextField = null;
-    JLabel eskisifreLabel = null;
-    JTextField eskisifreTextField = null;
-    JLabel yenisifreLabel = null;
-    JTextField yenisifreTextField = null;
-    JLabel yenisifretekrarLabel = null;
-    JTextField yenisifretekrarTextField = null;
-    JButton sifreyenileButton = null;
-    
-    
-    SifreYenilemeActions actions = new SifreYenilemeActions(this);
-    
-    public SifreYenilemeEkrani()
-    {
-        getSifreYenilemePanel().setBackground(new Color(255,204,204));
-        getSifreYenilemePanel().add(sifreyenilemeLabel());
-        getSifreYenilemePanel().add(geriLabel());
-        getSifreYenilemePanel().add(tcnoLabel());
-        getSifreYenilemePanel().add(tcnoTextField());
-        getSifreYenilemePanel().add( guvenliksorusuLabel());
-        getSifreYenilemePanel().add(guvenliksorusuTextField());
-        getSifreYenilemePanel().add(eskisifreLabel());
-        getSifreYenilemePanel().add(eskisifreTextField());
-        getSifreYenilemePanel().add(yenisifreLabel());
-        getSifreYenilemePanel().add(yenisifreTextField());
-        getSifreYenilemePanel().add(yenisifretekrarLabel());
-        getSifreYenilemePanel().add(yenisifretekrarTextField());
-        getSifreYenilemePanel().add(sifreyenileButton());
+    private JFrame sifreYenilemeFrame = null;
+    private JPanel sifreYenilemePanel = null;
+    private JLabel geriLabel = null;
+    private JLabel sifreyenilemeLabel = null;
+    private JLabel tcnoLabel = null;
+    private JTextField tcnoTextField = null;
+    private JLabel guvenliksorusuLabel = null;
+    private JTextField guvenliksorusuTextField = null;
+    private JLabel eskisifreLabel = null;
+    private JPasswordField eskiSifreText = null;
+    private JLabel yenisifreLabel = null;
+    private JPasswordField yeniSifreText = null;
+    private JLabel yenisifretekrarLabel = null;
+    private JPasswordField yeniSifreTekrarText = null;
+    private JButton sifreyenileButton = null;
+    private SifreYenilemeEkraniActions action = new SifreYenilemeEkraniActions(this);
+
+    public SifreYenilemeEkrani() {
+        panelAyarlamalariYap(getSifreYenilemePanel());
         getSifreYenilemeFrame().setVisible(true);
     }
-    
-    public JFrame getSifreYenilemeFrame()
-    {
-        if(SifreYenilemeFrame == null)
-        {
-            SifreYenilemeFrame = new JFrame("Şifre Değiştirme");
-            SifreYenilemeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            SifreYenilemeFrame.setResizable(false);
-            SifreYenilemeFrame.setLocation(700, 300);
-            SifreYenilemeFrame.setSize(530, 460);
-            SifreYenilemeFrame.setContentPane(getSifreYenilemePanel());
+
+    public JFrame getSifreYenilemeFrame() {
+        if (sifreYenilemeFrame == null) {
+            sifreYenilemeFrame = new JFrame("Şifre Değiştirme");
+            sifreYenilemeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            sifreYenilemeFrame.setResizable(false);
+            sifreYenilemeFrame.setLocation(650, 280);
+            sifreYenilemeFrame.setSize(530, 460);
+            sifreYenilemeFrame.setContentPane(getSifreYenilemePanel());
         }
-        return SifreYenilemeFrame;    
+        return sifreYenilemeFrame;
     }
-    
-    public JPanel getSifreYenilemePanel()
-    {
-        if(SifreYenilemePanel == null)
-        {
-            SifreYenilemePanel = new JPanel();
-            SifreYenilemePanel.setLayout(null);
-            SifreYenilemePanel.setFocusable(true);
+
+    public JPanel getSifreYenilemePanel() {
+        if (sifreYenilemePanel == null) {
+            sifreYenilemePanel = new JPanel();
+            sifreYenilemePanel.setLayout(null);
+            sifreYenilemePanel.setFocusable(true);
         }
-        return SifreYenilemePanel;
+        return sifreYenilemePanel;
     }
-    
-    public JLabel geriLabel()
-    {
-        if(geriLabel == null)
-        {
+
+    public JLabel getGeriLabel() {
+        if (geriLabel == null) {
             geriLabel = new JLabel();
             geriLabel.setBounds(10, 25, 30, 28);
             geriLabel.setIcon(new ImageIcon(getClass().getResource("/Gui/Image/geriIcon.png")));
             geriLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            geriLabel.addMouseListener(actions);            
+            geriLabel.addMouseListener(action);
         }
         return geriLabel;
     }
-    
-    
-    public JLabel sifreyenilemeLabel()
-    {
-        if(sifreyenilemeLabel == null)
-        {
+
+    public JLabel getSifreYenilemeLabel() {
+        if (sifreyenilemeLabel == null) {
             sifreyenilemeLabel = new JLabel();
             sifreyenilemeLabel.setText("Şifre Yenileme");
-            sifreyenilemeLabel.setFont(getFont(1, 24)); // style:bold , size:24
+            sifreyenilemeLabel.setFont(getFont(1, 24)); 
             sifreyenilemeLabel.setForeground(Color.red);
-            sifreyenilemeLabel.setBounds(60, 20, 220, 35);             
+            sifreyenilemeLabel.setBounds(60, 20, 220, 35);
         }
         return sifreyenilemeLabel;
     }
-    
-    public JLabel tcnoLabel()
-    {
-        if(tcnoLabel == null)
-        {
+
+    public JLabel getTcNoLabel() {
+        if (tcnoLabel == null) {
             tcnoLabel = new JLabel();
             tcnoLabel.setText("TC Kimlik Numaranız          :");
             tcnoLabel.setFont(getFont(0, 18));
@@ -112,24 +84,20 @@ public final class SifreYenilemeEkrani {
         }
         return tcnoLabel;
     }
-    
-    public JTextField tcnoTextField()
-    {
-        if(tcnoTextField == null)
-        {
+
+    public JTextField getTcNoText() {
+        if (tcnoTextField == null) {
             tcnoTextField = new JTextField();
-            tcnoTextField.setFont(getFont(0, 11));
-            tcnoTextField.setBounds(250,80, 200, 35);
-            KeyTyped.sadeceSayiAl(SifreYenilemeFrame, tcnoTextField);
+            tcnoTextField.setFont(getFont(0, 15));
+            tcnoTextField.setBounds(250, 80, 200, 35);
+            KeyTyped.sadeceSayiAl(getSifreYenilemeFrame(), getTcNoText());
             tcnoTextField.setDocument(new JTextFieldLimit(11));
         }
-        return tcnoTextField;        
+        return tcnoTextField;
     }
-    
-    public JLabel guvenliksorusuLabel()
-    {
-        if( guvenliksorusuLabel == null)
-        {
+
+    public JLabel getGuvenlikCevapLabel() {
+        if (guvenliksorusuLabel == null) {
             guvenliksorusuLabel = new JLabel();
             guvenliksorusuLabel.setText("Güvenlik Sorusu Cevabınız :");
             guvenliksorusuLabel.setFont(getFont(0, 18));
@@ -138,22 +106,18 @@ public final class SifreYenilemeEkrani {
         }
         return guvenliksorusuLabel;
     }
-    
-    public JTextField guvenliksorusuTextField()
-    {
-        if(guvenliksorusuTextField == null)
-        {
+
+    public JTextField getGuvenlikCevapText() {
+        if (guvenliksorusuTextField == null) {
             guvenliksorusuTextField = new JTextField();
-            guvenliksorusuTextField.setFont(getFont(0, 11));
+            guvenliksorusuTextField.setFont(getFont(0, 15));
             guvenliksorusuTextField.setBounds(250, 140, 200, 35);
         }
         return guvenliksorusuTextField;
     }
-    
-    public JLabel eskisifreLabel()
-    {
-        if(eskisifreLabel == null)
-        {
+
+    public JLabel getEskiSifreLabel() {
+        if (eskisifreLabel == null) {
             eskisifreLabel = new JLabel();
             eskisifreLabel.setText("Eski Şifreniz                        :");
             eskisifreLabel.setFont(getFont(0, 18));
@@ -162,22 +126,20 @@ public final class SifreYenilemeEkrani {
         }
         return eskisifreLabel;
     }
-    
-    public JTextField eskisifreTextField()
-    {
-        if(eskisifreTextField == null)
-        {
-            eskisifreTextField = new JTextField();
-            eskisifreTextField.setFont(getFont(0, 11));
-            eskisifreTextField.setBounds(250, 200, 200, 35);
+
+    public JPasswordField getEskiSifreText() {
+        if (eskiSifreText == null) {
+            eskiSifreText = new JPasswordField();
+            eskiSifreText.setFont(getFont(0, 15));
+            eskiSifreText.setBounds(250, 200, 200, 35);
+            KeyTyped.sadeceSayiAl(getSifreYenilemeFrame(), getEskiSifreText());
+            eskiSifreText.setDocument(new JTextFieldLimit(6));
         }
-        return eskisifreTextField;
+        return eskiSifreText;
     }
-    
-    public JLabel yenisifreLabel()
-    {
-        if(yenisifreLabel == null)
-        {
+
+    public JLabel getYeniSifreLabel() {
+        if (yenisifreLabel == null) {
             yenisifreLabel = new JLabel();
             yenisifreLabel.setText("Yeni Şifreniz                        :");
             yenisifreLabel.setFont(getFont(0, 18));
@@ -186,22 +148,20 @@ public final class SifreYenilemeEkrani {
         }
         return yenisifreLabel;
     }
-    
-    public JTextField yenisifreTextField()
-    {
-        if(yenisifreTextField == null)
-        {
-            yenisifreTextField = new JTextField();
-            yenisifreTextField.setFont(getFont(0, 11));
-            yenisifreTextField.setBounds(250, 260, 200, 35);
+
+    public JPasswordField getYeniSifreText() {
+        if (yeniSifreText == null) {
+            yeniSifreText = new JPasswordField();
+            yeniSifreText.setFont(getFont(0, 15));
+            yeniSifreText.setBounds(250, 260, 200, 35);
+            KeyTyped.sadeceSayiAl(getSifreYenilemeFrame(), getYeniSifreText());
+            yeniSifreText.setDocument(new JTextFieldLimit(6));
         }
-        return yenisifreTextField;
+        return yeniSifreText;
     }
-    
-        public JLabel yenisifretekrarLabel()
-    {
-        if(yenisifretekrarLabel == null)
-        {
+
+    public JLabel getYeniSifreTekrarLabel() {
+        if (yenisifretekrarLabel == null) {
             yenisifretekrarLabel = new JLabel();
             yenisifretekrarLabel.setText("Yeni Şifreniz Tekrar             :");
             yenisifretekrarLabel.setFont(getFont(0, 18));
@@ -210,34 +170,50 @@ public final class SifreYenilemeEkrani {
         }
         return yenisifretekrarLabel;
     }
-        
-    public JTextField yenisifretekrarTextField()
-    {
-        if(yenisifretekrarTextField == null)
-        {
-            yenisifretekrarTextField = new JTextField();
-            yenisifretekrarTextField.setFont(getFont(0, 11));
-            yenisifretekrarTextField.setBounds(250, 320, 200, 35);
+
+    public JPasswordField getYeniSifreTekrarText() {
+        if (yeniSifreTekrarText == null) {
+            yeniSifreTekrarText = new JPasswordField();
+            yeniSifreTekrarText.setFont(getFont(0, 15));
+            yeniSifreTekrarText.setBounds(250, 320, 200, 35);
+            KeyTyped.sadeceSayiAl(getSifreYenilemeFrame(), getYeniSifreTekrarText());
+            yeniSifreTekrarText.setDocument(new JTextFieldLimit(6));
         }
-        return yenisifretekrarTextField;
-    }        
-    
-        public JButton sifreyenileButton() {
+        return yeniSifreTekrarText;
+    }
+
+    public JButton getSifreYenileButton() {
         if (sifreyenileButton == null) {
             sifreyenileButton = new JButton();
             sifreyenileButton.setText("Şifre Yenile");
             sifreyenileButton.setFont(getFont(1, 16));
             sifreyenileButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            sifreyenileButton.setBounds(300, 380, 130,35);
-            sifreyenileButton.addActionListener(actions);
+            sifreyenileButton.setBounds(300, 380, 130, 35);
+            sifreyenileButton.addActionListener(action);
         }
         return sifreyenileButton;
-    }    
-    
-    
-     public Font getFont(int style, int size) {
+    }
+
+    public Font getFont(int style, int size) {
         return new Font("Segoe UI", style, size);
     }
-    
-    
+
+    @Override
+    public void panelAyarlamalariYap(JPanel panel) {
+        panel.setBackground(new Color(255, 204, 204));
+        panel.add(getSifreYenilemeLabel());
+        panel.add(getGeriLabel());
+        panel.add(getTcNoLabel());
+        panel.add(getTcNoText());
+        panel.add(getGuvenlikCevapLabel());
+        panel.add(getGuvenlikCevapText());
+        panel.add(getEskiSifreLabel());
+        panel.add(getEskiSifreText());
+        panel.add(getYeniSifreLabel());
+        panel.add(getYeniSifreText());
+        panel.add(getYeniSifreTekrarLabel());
+        panel.add(getYeniSifreTekrarText());
+        panel.add(getSifreYenileButton());
+    }
+
 }
